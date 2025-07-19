@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -40,7 +40,7 @@ namespace ProjectZed
                 FileStackPanel.Children.Add(label);
             }
         }
-
+        
         private void OpenFolderButtonClickedEventHandler(object sender, RoutedEventArgs e)
         {
             MainWindow.GetInstance().OpenFolder();

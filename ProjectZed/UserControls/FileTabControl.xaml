@@ -7,6 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBox x:Name="TextBox" AcceptsReturn="True" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*" />
+            <RowDefinition  Height="90*" />
+        </Grid.RowDefinitions>
+        
+        <Button Content="UpdateColors" Click="Clicked" />
+        <RichTextBox Grid.Row="1" x:Name="FileTextBox" AcceptsReturn="True" AcceptsTab="True"/>
     </Grid>
 </UserControl>

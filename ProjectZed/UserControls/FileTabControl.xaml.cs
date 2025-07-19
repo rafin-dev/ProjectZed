@@ -1,8 +1,12 @@
 ﻿using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace ProjectZed
 {
+
     /// <summary>
     /// Interaction logic for TestControl.xaml
     /// </summary>
@@ -10,7 +14,7 @@ namespace ProjectZed
     {
         public static void OpenFile(string path, TabControl tabControl)
         {
-            var t = new FileTabControl(path,  tabControl);
+            var t = new FileTabControl(path, tabControl);
         }
 
         public static void CreateEmpty(TabControl tabControl)
@@ -25,7 +29,8 @@ namespace ProjectZed
             if (File.Exists(filePath))
             {
                 m_FilePath = filePath;
-                TextBox.Text = File.ReadAllText(m_FilePath);
+                FileTextBox.Document.Blocks.Clear();
+                FileTextBox.AppendText(File.ReadAllText(m_FilePath));
                 m_TabItem.Header = new TabHeader(Path.GetFileName(m_FilePath), tabControl);
             }
             else
@@ -57,7 +62,7 @@ namespace ProjectZed
         {
             if (File.Exists(m_FilePath))
             {
-                File.WriteAllText(m_FilePath, TextBox.Text);
+                File.WriteAllText(m_FilePath, GetText().TrimEnd());
             }
             else
             {
@@ -75,7 +80,7 @@ namespace ProjectZed
                 m_FilePath = dialog.FileName;
                 if (File.Exists(m_FilePath))
                 {
-                    File.WriteAllText(m_FilePath, TextBox.Text);
+                    File.WriteAllText(m_FilePath, GetText().TrimEnd());
                 }
             }
 
@@ -84,7 +89,12 @@ namespace ProjectZed
 
         public string GetText()
         {
-            return TextBox.Text;
+            TextRange range = new TextRange(
+                FileTextBox.Document.ContentStart,
+                FileTextBox.Document.ContentEnd
+                );
+
+            return range.Text;
         }
 
         public string GetFilePath()
@@ -92,8 +102,76 @@ namespace ProjectZed
             return m_FilePath;
         }
 
-
         private string m_FilePath = string.Empty;
         private TabItem m_TabItem = new TabItem();
+
+        private Dictionary<string, string> m_KeyWordToColor = new Dictionary<string, string>()
+        {
+            { "and",        "#ff0022" },
+            { "break",      "#ff0022" },
+            { "do",         "#ff0022" },
+            { "else",       "#ff0022" },
+            { "elseif",     "#ff0022" },
+            { "end",        "#ff0022" },
+            { "false",      "#ff0022" },
+            { "for",        "#ff0022" },
+            { "function",   "#ff0022" },
+            { "if",         "#ff0022" },
+            { "in",         "#ff0022" },
+            { "local",      "#ff0022" },
+            { "nil",        "#ff0022" },
+            { "not",        "#ff0022" },
+            { "or",         "#ff0022" },
+            { "repeat",     "#ff0022" },
+            { "return",     "#ff0022" },
+            { "then",       "#ff0022" },
+            { "true",       "#ff0022" },
+            { "until",      "#ff0022" },
+            { "while",      "#ff0022" }
+        };
+
+        struct TextPart
+        {
+            public TextPart(string text, string color, int index)
+            {
+                Text = text;
+                Color = color;
+                Index = index;
+            }
+
+            public string Text = string.Empty;
+            public string Color = string.Empty;
+            public int Index = 0;
+        }
+
+        private KeywordHighlighter m_Highlighter = new LuaHighlighter();
+
+        private void Clicked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            string text = GetText();
+
+            var result = m_Highlighter.HighlightKeywords(text);
+
+            FileTextBox.Document.Blocks.Clear();
+            foreach (var t in result)
+            {
+                AppendText(FileTextBox, t.Text, t.Color);
+            }
+        }
+
+        private static void AppendText(RichTextBox box, string text, string color)
+        {
+            BrushConverter bc = new BrushConverter();
+            TextRange tr = new TextRange(box.Document.ContentEnd, box.Document.ContentEnd);
+            tr.Text = text;
+            try
+            {
+                tr.ApplyPropertyValue(TextElement.ForegroundProperty,
+                    bc.ConvertFrom(color));
+            }
+            catch (FormatException) 
+            {
+            }
+        }
     }
 }
