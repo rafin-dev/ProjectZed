@@ -33,12 +33,18 @@ namespace ProjectZed
 
         public static KeywordHighlighter CreateHighliter(string extension)
         {
-
+            if (s_ExtensionToConstructor.ContainsKey(extension))
+            {
+                return s_ExtensionToConstructor[extension]();
+            }
 
             return new KeywordHighlighter();
         }
 
-        public virtual List<TextBlock> HighlightKeywords(string text) { return new List<TextBlock>(); }
+        public virtual List<TextBlock> HighlightKeywords(string text) 
+        { 
+            return new List<TextBlock> { new TextBlock(text, "AliceBlue", 0) }; 
+        }
     }
 
     static partial class Extensions

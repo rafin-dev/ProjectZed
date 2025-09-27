@@ -29,6 +29,8 @@ namespace ProjectZed
             InitializeComponent();
 
             s_Instance = this;
+
+            KeywordHighlighter.Init();
         }
 
         //private List<FileTab> m_FileTabs= new List<FileTab>();

@@ -1,10 +1,10 @@
 ﻿using System.Text.RegularExpressions;
+using System.Windows.Threading;
 
 namespace ProjectZed
 {
     public class LuaHighlighter : KeywordHighlighter
     {
-
         public override List<TextBlock> HighlightKeywords(string text)
         {
             List<TextBlock> result = new List<TextBlock>();
@@ -72,7 +72,7 @@ namespace ProjectZed
             string t0 = text.Substring(0, result[0].Index);
             if (t0 != string.Empty)
             {
-                basicText.Add(new TextBlock(t0 + "\n", "#000000", 0));
+                basicText.Add(new TextBlock(t0 + "\n", "#f0f8ff", 0));
             }
 
             // Add non keyword text in between keywords
@@ -81,7 +81,7 @@ namespace ProjectZed
                 int keywordEndIndex = result[i].Index + result[i].Text.Length;
                 string t = text.Substring(keywordEndIndex, result[i + 1].Index - keywordEndIndex);
 
-                basicText.Add(new TextBlock(t, "#000000", keywordEndIndex));
+                basicText.Add(new TextBlock(t, "#f0f8ff", keywordEndIndex));
             }
 
             // Add non keyword text after last keyword
@@ -89,7 +89,7 @@ namespace ProjectZed
             string t1 = text.Substring(keywordEndIndex1, text.Length - keywordEndIndex1);
             if (t1 != string.Empty)
             {
-                basicText.Add(new TextBlock(t1, "#000000", keywordEndIndex1));
+                basicText.Add(new TextBlock(t1, "#f0f8ff", keywordEndIndex1));
             }
 
             result.AddRange(basicText);
@@ -102,27 +102,27 @@ namespace ProjectZed
 
         private Dictionary<string, string> m_KeyWordToColor = new Dictionary<string, string>()
         {
-            { "and",        "#ff0022" },
-            { "break",      "#ff0022" },
-            { "do",         "#ff0022" },
-            { "else",       "#ff0022" },
-            { "elseif",     "#ff0022" },
-            { "end",        "#ff0022" },
-            { "false",      "#ff0022" },
-            { "for",        "#ff0022" },
-            { "function",   "#ff0022" },
-            { "if",         "#ff0022" },
-            { "in",         "#ff0022" },
-            { "local",      "#ff0022" },
-            { "nil",        "#ff0022" },
-            { "not",        "#ff0022" },
-            { "or",         "#ff0022" },
-            { "repeat",     "#ff0022" },
-            { "return",     "#ff0022" },
-            { "then",       "#ff0022" },
-            { "true",       "#ff0022" },
-            { "until",      "#ff0022" },
-            { "while",      "#ff0022" }
+            { "and",        "#414dba" },
+            { "break",      "#414dba" },
+            { "do",         "#414dba" },
+            { "else",       "#414dba" },
+            { "elseif",     "#414dba" },
+            { "end",        "#414dba" },
+            { "false",      "#414dba" },
+            { "for",        "#414dba" },
+            { "function",   "#414dba" },
+            { "if",         "#414dba" },
+            { "in",         "#414dba" },
+            { "local",      "#414dba" },
+            { "nil",        "#414dba" },
+            { "not",        "#414dba" },
+            { "or",         "#414dba" },
+            { "repeat",     "#414dba" },
+            { "return",     "#414dba" },
+            { "then",       "#414dba" },
+            { "true",       "#414dba" },
+            { "until",      "#414dba" },
+            { "while",      "#414dba" }
         };
     }
 }

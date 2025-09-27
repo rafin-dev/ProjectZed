@@ -1,6 +1,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace ProjectZed
 {
@@ -23,7 +24,8 @@ namespace ProjectZed
                 MessageBox.Show("Folder does not exist", "Error opening folder", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            FileStackPanel.Children.Remove(OpenFolderButton);
+
+            OpenFolderButton.Visibility = Visibility.Collapsed;
 
             FolderLabel.Content = Path.GetDirectoryName(folderName);
 
@@ -35,6 +37,7 @@ namespace ProjectZed
                 m_FileNameToPath[filename] = file;
 
                 label.Content = filename;
+                label.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("AliceBlue");
                 label.MouseDoubleClick += (e, i) => { MainWindow.GetInstance().OpenFile(m_FileNameToPath[(e as Label)?.Content as string]); };
 
                 FileStackPanel.Children.Add(label);

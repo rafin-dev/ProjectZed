@@ -6,16 +6,23 @@
         xmlns:local="clr-namespace:ProjectZed"
         mc:Ignorable="d"
         Title="Zed" Height="720" Width="1280"
-        KeyDown="KeyDownEventHandler">
-    <Grid Margin="10">
+        KeyDown="KeyDownEventHandler"
+        Background="#04050a">
+    <Grid Margin="10" Background="#04050a">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="15*"/>
             <ColumnDefinition Width="85*" />
         </Grid.ColumnDefinitions>
 
-        <local:FolderExplorer Grid.Column="0" x:Name="FolderExplorerControl"/>
+        <local:FolderExplorer Grid.Column="0" x:Name="FolderExplorerControl" Background="#15151f"/>
 
-        <TabControl x:Name="TabControl" TabStripPlacement="Top" Grid.Column="1" />
+        <TabControl x:Name="TabControl" TabStripPlacement="Top" Grid.Column="1" Background="#1e1e26" BorderBrush="#15151f">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Margin" Value="0, 0"/>
+                </Style>
+            </TabControl.Resources>
+        </TabControl>
     </Grid>
 
 </Window>

@@ -9,9 +9,10 @@
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1">
             <StackPanel Orientation="Vertical" x:Name="FileStackPanel">
-                <Label x:Name="FolderLabel" Content="No Folder"/>
+                <Label x:Name="FolderLabel" Content="No Folder" Foreground="White"/>
                 <Separator />
-                <Button x:Name="OpenFolderButton" Content="Open Folder"  Margin=" 4, 4, 4, 4" Click="OpenFolderButtonClickedEventHandler"/>
+                <Button x:Name="OpenFolderButton" Content="Open Folder" Background="AliceBlue" 
+                        Margin=" 4, 4, 4, 4" Click="OpenFolderButtonClickedEventHandler"/>
             </StackPanel>
         </Border>
     </Grid>
