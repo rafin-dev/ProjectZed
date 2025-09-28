@@ -67,6 +67,11 @@ namespace ProjectZed
 
                 // Change Text
                 {
+                    if (!m_IsTextChanged)
+                    {
+                        return;
+                    }
+
                     var nText = m_Highlighter.HighlightKeywords(GetText());
 
                     // Used to know what empty lines are actually part of the file
@@ -108,16 +113,18 @@ namespace ProjectZed
                 }
 
                 RestoreCursor();
+
+                m_IsTextChanged = false;
             };
 
             m_DispatcherTimer.Interval = TimeSpan.FromSeconds(1);
             m_DispatcherTimer.Start();
         }
 
-        string _preText = "";
+        string m_PreText = "";
         private void SaveCursor()
         {
-            _preText = new TextRange(FileTextBox.Document.ContentStart, FileTextBox.CaretPosition).Text;
+            m_PreText = new TextRange(FileTextBox.Document.ContentStart, FileTextBox.CaretPosition).Text;
         }
         private void RestoreCursor()
         {
@@ -127,12 +134,15 @@ namespace ProjectZed
             while (newPos != null)
             {
                 _postText = new TextRange(startPos, newPos).Text;
-                if (_preText == _postText)
+                if (m_PreText == _postText)
                     break;
 
                 newPos = newPos.GetNextContextPosition(LogicalDirection.Forward);
             }
-            FileTextBox.CaretPosition = newPos;
+            if (newPos != null)
+            {
+                FileTextBox.CaretPosition = newPos;
+            }
         }
 
         public void SaveFile()
@@ -210,6 +220,29 @@ namespace ProjectZed
             catch (FormatException) 
             {
             }
+        }
+
+        private bool m_IsTextChanged = false;
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            int lineCount = 0;
+            var text = GetText();
+            foreach (var c in text)
+            {
+                if (c == '\n')
+                {
+                    lineCount++;
+                }
+            }
+            if (lineCount  == 0) { lineCount = 1; }
+
+            LineNumber.Text = string.Empty;
+            for (int i = 1; i <= lineCount; i++)
+            {
+                LineNumber.Text += i.ToString() + "\n";
+            }
+
+            m_IsTextChanged = true;
         }
     }
 }

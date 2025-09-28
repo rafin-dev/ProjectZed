@@ -62,6 +62,7 @@ namespace ProjectZed
 
             if (result.Count == 0) // No keyword to color
             {
+                result.Add(new TextBlock(text, "#f0f8ff", 0));
                 return result;
             }
 
