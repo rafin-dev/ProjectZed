@@ -7,22 +7,57 @@
         mc:Ignorable="d"
         Title="Zed" Height="720" Width="1280"
         KeyDown="KeyDownEventHandler"
-        Background="#04050a">
-    <Grid Margin="10" Background="#04050a">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="15*"/>
-            <ColumnDefinition Width="85*" />
-        </Grid.ColumnDefinitions>
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        StateChanged="OnWindowStateChanged">
+    <Border Background="Transparent" CornerRadius="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30px"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <local:FolderExplorer Grid.Column="0" x:Name="FolderExplorerControl" Background="#15151f"/>
+            <Border  Margin="0" Grid.Row="0" Background="#050512" CornerRadius="10, 10, 0, 0"  MouseDown="TopBarMouseDown">
+                <local:TopBar/>
+            </Border>
+            
+            <Grid Grid.Row="1" Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15*"/>
+                    <ColumnDefinition Width="85*" />
+                </Grid.ColumnDefinitions>
 
-        <TabControl x:Name="TabControl" TabStripPlacement="Top" Grid.Column="1" Background="#1e1e26" BorderBrush="#15151f">
-            <TabControl.Resources>
-                <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="Margin" Value="0, 0"/>
-                </Style>
-            </TabControl.Resources>
-        </TabControl>
-    </Grid>
+                <Border Grid.Column="0" CornerRadius="0, 0, 0, 10"  Background="#15151f">
+                    <local:FolderExplorer x:Name="FolderExplorerControl" Background="Transparent" BorderBrush="Transparent"/>
+                </Border>
+
+                <Border CornerRadius="0, 0, 10, 0" Grid.Column="1" Background="#1e1e26" >
+                    <TabControl x:Name="TabControl" TabStripPlacement="Top" Background="Transparent" BorderBrush="Transparent">
+                        <TabControl.Resources>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Margin" Value="0"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TabItem">
+                                            <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Transparent" CornerRadius="8,8,0,0" Margin="0,0">
+                                                <ContentPresenter x:Name="ContentSite"  
+                                        VerticalAlignment="Center"  
+                                        HorizontalAlignment="Center"  
+                                        ContentSource="Header"  
+                                        Margin="0,0"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TabControl.Resources>
+                    </TabControl>
+                </Border>
+
+            </Grid>
+        </Grid>
+    </Border>
 
 </Window>

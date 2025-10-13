@@ -1,11 +1,13 @@
 using Microsoft.Win32;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -108,6 +110,29 @@ namespace ProjectZed
         private void CloseTabEventHandler(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private void TopBarMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
+
+        private void OnWindowStateChanged(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                WindowState = WindowState.Normal;
+
+                Left = 0;
+                Top = 0;
+                Width = System.Windows.SystemParameters.PrimaryScreenWidth;
+
+                var toolbarHeight = SystemParameters.PrimaryScreenHeight - SystemParameters.FullPrimaryScreenHeight - SystemParameters.WindowCaptionHeight;
+                Height = System.Windows.SystemParameters.PrimaryScreenHeight  -  toolbarHeight;
+            }
         }
     }
 }

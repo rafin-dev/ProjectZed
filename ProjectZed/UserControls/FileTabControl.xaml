@@ -9,16 +9,23 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20px"/>
+            <ColumnDefinition Width="5px"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Background="black" FontSize="15" TextAlignment="Center" Foreground="White"
+        <ScrollViewer VerticalScrollBarVisibility="Disabled" x:Name="LineNumberScroll">
+            <TextBlock Background="#12121a" FontSize="15" TextAlignment="Center" Foreground="White"
                    x:Name="LineNumber" LineHeight="25">
-        </TextBlock>
-        
-        <RichTextBox Foreground="#f0f8ff" x:Name="FileTextBox" Grid.Column="1"
-                     AcceptsReturn="True" AcceptsTab="True" Background="#1e1e26"
-                     BorderThickness="0" FontSize="15" TextChanged="OnTextChanged">
+            </TextBlock>
+        </ScrollViewer>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="1">
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+        </StackPanel>
+
+        <RichTextBox Foreground="#f0f8ff" x:Name="FileTextBox" Grid.Column="2"
+                     AcceptsReturn="True" AcceptsTab="True" Background="#13131f"
+                     BorderThickness="0" FontSize="15" TextChanged="OnTextChanged" ScrollViewer.ScrollChanged="OnScrollChanged">
             <RichTextBox.Resources>
                 <Style TargetType="{x:Type Paragraph}">
                     <Setter Property="Margin" Value="5"/>

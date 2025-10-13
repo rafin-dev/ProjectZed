@@ -244,5 +244,9 @@ namespace ProjectZed
 
             m_IsTextChanged = true;
         }
+        private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            LineNumberScroll.ScrollToVerticalOffset(e.VerticalOffset);
+        }
     }
 }

@@ -7,20 +7,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              BorderThickness="0"
-             Background="#1e1e26">
-    <Grid Background="#1e1e26" Margin="0, 0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        
-        <Label Grid.Column="0" x:Name="TabHeaderLabel" HorizontalAlignment="Left" 
+             Background="Transparent"
+             Height="30px"
+             Margin="0">
+    <Border Background="#11111f" BorderBrush="Transparent" CornerRadius="10, 10, 0, 0">
+
+        <StackPanel Orientation="Horizontal" Background="Transparent">
+            <Label Grid.Column="0" x:Name="TabHeaderLabel" HorizontalAlignment="Left" 
                Height="30" Margin="4, 1, 0, 0" VerticalAlignment="Top"
                Foreground="AliceBlue"/>
+
+            <Button Grid.Column="2" Height="18" Click="CloseButtonClicked" HorizontalAlignment="Right"
+                VerticalAlignment="Center" Width="18" Background="Transparent" Foreground="AliceBlue" BorderThickness="0">
+                <Image Source="/Assets/Close.png"/>
+            </Button>
+        </StackPanel>
         
-        <Button Grid.Column="2" Content="X" Height="19" Click="CloseButtonClicked" HorizontalAlignment="Right"
-                VerticalAlignment="Center" Width="20" FontFamily="Courier New" FontWeight="Bold" FontStretch="Normal"
-                FontSize="14" Background="#1e1e26" Foreground="AliceBlue" BorderThickness="0"/>
-    </Grid>
+    </Border>
 </UserControl>
