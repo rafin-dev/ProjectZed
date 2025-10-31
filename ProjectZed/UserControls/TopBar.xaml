@@ -16,11 +16,15 @@
                 <Image Source="/Assets/minimize.png"/>
             </Button>
 
+            <Separator Opacity="0" Width="15px"/>
+
             <Button Width="20px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center"
                 Background="Transparent" BorderBrush="Transparent" Foreground="White" FontSize="15"
                 Click="OnClickMaximize">
                 <Image Source="/Assets/maximize.png"/>
             </Button>
+
+            <Separator Opacity="0" Width="10px"/>
 
             <Button Width="20px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center"
                 Background="Transparent" BorderBrush="Transparent" Foreground="White" FontSize="15"

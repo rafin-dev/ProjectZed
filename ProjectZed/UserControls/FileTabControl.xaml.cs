@@ -86,9 +86,11 @@ namespace ProjectZed
 
                     List<Block?> deleteBlocks = new();
                     FileTextBox.Document.Blocks.Clear();
+                    MiniView.Document.Blocks.Clear();
                     foreach (var block in nText)
                     {
                         AppendText(FileTextBox, block.Text, block.Color);
+                        AppendText(MiniView, block.Text, block.Color);
                     }
 
                     // For some reason, the document gains new empty lines after changing colors, so we remove them

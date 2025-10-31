@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -37,7 +38,7 @@ namespace ProjectZed
                 m_FileNameToPath[filename] = file;
 
                 label.Content = filename;
-                label.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("AliceBlue");
+                label.Foreground = (SolidColorBrush?)new BrushConverter().ConvertFromString("AliceBlue");
                 label.MouseDoubleClick += (e, i) => { MainWindow.GetInstance().OpenFile(m_FileNameToPath[(e as Label)?.Content as string]); };
 
                 FileStackPanel.Children.Add(label);
