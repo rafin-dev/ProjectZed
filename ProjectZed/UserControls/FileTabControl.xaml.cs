@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -63,64 +64,67 @@ namespace ProjectZed
 
             m_DispatcherTimer.Tick += (o, e) =>
             {
-                SaveCursor();
-
-                // Change Text
-                {
-                    if (!m_IsTextChanged)
-                    {
-                        return;
-                    }
-
-                    var nText = m_Highlighter.HighlightKeywords(GetText());
-
-                    // Used to know what empty lines are actually part of the file
-                    int emptyCount = 0;
-                    foreach (var block in FileTextBox.Document.Blocks)
-                    {
-                        if ((new TextRange(block.ContentStart, block.ContentEnd).Text == string.Empty))
-                        {
-                            emptyCount++;
-                        }
-                    }
-
-                    List<Block?> deleteBlocks = new();
-                    FileTextBox.Document.Blocks.Clear();
-                    MiniView.Document.Blocks.Clear();
-                    foreach (var block in nText)
-                    {
-                        AppendText(FileTextBox, block.Text, block.Color);
-                        AppendText(MiniView, block.Text, block.Color);
-                    }
-
-                    // For some reason, the document gains new empty lines after changing colors, so we remove them
-                    int nEmpCount = 0;
-                    foreach (var block in FileTextBox.Document.Blocks)
-                    {
-                        var text = (new TextRange(block.ContentStart, block.ContentEnd).Text);
-                        if (text == string.Empty)
-                        {
-                            nEmpCount++;
-
-                            if (nEmpCount > emptyCount)
-                            { 
-                                deleteBlocks.Add(block);
-                            }
-                        }
-                    }
-                    foreach (var block in deleteBlocks)
-                    {
-                        FileTextBox.Document.Blocks.Remove(block);
-                    }
-                }
-
-                RestoreCursor();
-
-                m_IsTextChanged = false;
+                UpdateColors();
             };
 
             m_DispatcherTimer.Interval = TimeSpan.FromSeconds(1);
-            m_DispatcherTimer.Start();
+
+            UpdateColors();
+        }
+
+        private void UpdateColors()
+        {
+            m_IsWorkingOnText = true;
+            SaveCursor();
+
+            // Change Text
+            {
+                var nText = m_Highlighter.HighlightKeywords(GetText());
+
+                // Used to know what empty lines are actually part of the file
+                int emptyCount = 0;
+                foreach (var block in FileTextBox.Document.Blocks)
+                {
+                    if ((new TextRange(block.ContentStart, block.ContentEnd).Text == string.Empty))
+                    {
+                        emptyCount++;
+                    }
+                }
+
+                List<Block?> deleteBlocks = new();
+                FileTextBox.Document.Blocks.Clear();
+                MiniView.Document.Blocks.Clear();
+                foreach (var block in nText)
+                {
+                    AppendText(FileTextBox, block.Text, block.Color);
+                    AppendText(MiniView, block.Text, block.Color);
+                }
+
+                // For some reason, the document gains new empty lines after changing colors, so we remove them
+                int nEmpCount = 0;
+                foreach (var block in FileTextBox.Document.Blocks)
+                {
+                    var textBlock = (new TextRange(block.ContentStart, block.ContentEnd).Text);
+                    if (textBlock == string.Empty)
+                    {
+                        nEmpCount++;
+
+                        if (nEmpCount > emptyCount)
+                        {
+                            deleteBlocks.Add(block);
+                        }
+                    }
+                }
+                foreach (var block in deleteBlocks)
+                {
+                    FileTextBox.Document.Blocks.Remove(block);
+                }
+            }
+
+            RestoreCursor();
+            m_IsWorkingOnText = false;
+
+            m_DispatcherTimer.Stop();
         }
 
         string m_PreText = "";
@@ -224,11 +228,22 @@ namespace ProjectZed
             }
         }
 
-        private bool m_IsTextChanged = false;
+        private float m_LastUpdate = DateTime.Now.Second;
+        private bool m_IsWorkingOnText = false;
+        private string m_PreviousText = "";
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            int lineCount = 0;
+            if (m_IsWorkingOnText) { return; }
+
             var text = GetText();
+            if (text == m_PreviousText)
+            {
+                return;
+            }
+
+            m_PreviousText = text;
+
+            int lineCount = 0;
             foreach (var c in text)
             {
                 if (c == '\n')
@@ -244,7 +259,16 @@ namespace ProjectZed
                 LineNumber.Text += i.ToString() + "\n";
             }
 
-            m_IsTextChanged = true;
+            float nTime = DateTime.Now.Second;
+            if (nTime - m_LastUpdate > 0.5f)
+            {
+                m_LastUpdate = nTime;
+                UpdateColors();
+            }
+            else
+            {
+                m_DispatcherTimer.Start();
+            }
         }
         private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
         {

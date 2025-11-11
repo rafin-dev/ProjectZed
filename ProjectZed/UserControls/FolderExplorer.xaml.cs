@@ -16,6 +16,8 @@ namespace ProjectZed
         public FolderExplorer()
         {
             InitializeComponent();
+
+            SetFolder("TestProject");
         }
 
         public void SetFolder(string folderName)
@@ -28,19 +30,16 @@ namespace ProjectZed
 
             OpenFolderButton.Visibility = Visibility.Collapsed;
 
-            FolderLabel.Content = Path.GetDirectoryName(folderName);
+            FolderLabel.Content = "TestProject";
 
             foreach (string? file in Directory.GetFiles(folderName))
             {
-                Label label = new Label();
+                FileEntry label = new();
 
                 string filename = Path.GetFileName(file);
                 m_FileNameToPath[filename] = file;
 
-                label.Content = filename;
-                label.Foreground = (SolidColorBrush?)new BrushConverter().ConvertFromString("AliceBlue");
-                label.MouseDoubleClick += (e, i) => { MainWindow.GetInstance().OpenFile(m_FileNameToPath[(e as Label)?.Content as string]); };
-
+                label.FileName = filename;
                 FileStackPanel.Children.Add(label);
             }
         }

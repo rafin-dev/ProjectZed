@@ -5,6 +5,9 @@
     <Compile Update="UserControls\ControlBar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\FileEntry.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\FileTabControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

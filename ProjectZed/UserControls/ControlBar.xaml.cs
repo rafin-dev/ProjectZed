@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ProjectZed
 {
@@ -27,15 +28,60 @@ namespace ProjectZed
             InitializeComponent();
         }
 
-        private void OnClick(object sender, RoutedEventArgs e)
+        private static Process? m_Process = null;
+
+        private void RunOnClick(object sender, RoutedEventArgs e)
         {
+            Run();
+        }
+
+        private void ProcessExited(object sender, System.EventArgs e)
+        {
+            this.Dispatcher.Invoke(new Action<UIElement, Visibility>(SetVisibility), RunButtonStack, Visibility.Visible);
+            this.Dispatcher.Invoke(new Action<UIElement, Visibility>(SetVisibility), StopButton, Visibility.Collapsed);
+        }
+
+        private void SetVisibility(UIElement element, Visibility visibility)
+        {
+            element.Visibility = visibility;
+        }
+
+        private void Run()
+        {
+            if (m_Process != null && !m_Process.HasExited) { return; }
+
             ProcessStartInfo info = new ProcessStartInfo();
-            info.Arguments = "C:/Users/PC/Downloads/ProjectZed-main/ProjectZed-main/ProjectZed/DummyCode.lua";
-            info.FileName = "lua\\Lua.exe";
+            info.Arguments = "TestProject\\DummyCode.lua";
+            info.FileName = "Lua\\Lua.exe";
 
             info.UseShellExecute = true;
-            
-            Process? p = Process.Start(info);
+
+            m_Process = Process.Start(info);
+
+            if (m_Process != null)
+            {
+                m_Process.EnableRaisingEvents = true;
+                m_Process.Exited += new EventHandler(ProcessExited);
+
+                RunButtonStack.Visibility = Visibility.Collapsed;
+                StopButton.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F5)
+            {
+                Run();
+            }
+        }
+
+        private void StopOnClick(object sender, RoutedEventArgs e)
+        {
+            if (m_Process != null)
+            {
+                m_Process.Kill();
+            }
         }
     }
 }

@@ -10,14 +10,25 @@
 
   <ItemGroup>
     <None Remove="Assets\Close.png" />
+    <None Remove="Assets\File.png" />
     <None Remove="Assets\maximize.png" />
     <None Remove="Assets\minimize.png" />
+    <None Remove="Assets\Run.png" />
+    <None Remove="Assets\RunDebug.png" />
+    <None Remove="Assets\Stop.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\File.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Assets\Close.png" />
     <Resource Include="Assets\maximize.png" />
     <Resource Include="Assets\minimize.png" />
+    <Resource Include="Assets\Run.png" />
+    <Resource Include="Assets\RunDebug.png" />
+    <Resource Include="Assets\Stop.png" />
   </ItemGroup>
 
 </Project>

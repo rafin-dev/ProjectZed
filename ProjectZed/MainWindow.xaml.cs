@@ -33,6 +33,7 @@ namespace ProjectZed
             s_Instance = this;
 
             KeywordHighlighter.Init();
+            OpenFile("TestProject\\DummyCode.lua");
         }
 
         //private List<FileTab> m_FileTabs= new List<FileTab>();

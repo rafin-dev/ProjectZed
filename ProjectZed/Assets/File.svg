@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.7"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="File.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   inkscape:export-filename="File.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#696969"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="11.502694"
+     inkscape:cx="18.082721"
+     inkscape:cy="21.777508"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#ffffff;stroke:#000000;stroke-width:0.264583;fill-opacity:1;stroke-opacity:1"
+       d="M 1.955158,0.96607806 H 8.3956783 L 10.603857,3.2432619 v 8.2806691 l -8.5796935,-0.046 z"
+       id="path1" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Camada 2">
+    <ellipse
+       style="fill:#310fcb;fill-opacity:1;stroke:#310fcc;stroke-width:0.264583;stroke-opacity:1"
+       id="path6"
+       cx="6.3485126"
+       cy="6.4865241"
+       rx="3.0592473"
+       ry="3.0362451" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.264583;stroke-opacity:1"
+       id="path7"
+       cx="7.8551345"
+       cy="4.9914031"
+       rx="0.79356414"
+       ry="0.82806689" />
+    <ellipse
+       style="fill:#310fcc;fill-opacity:1;stroke:#320fcc;stroke-width:0.264583;stroke-opacity:1"
+       id="path7-2"
+       cx="9.3001432"
+       cy="3.3649817"
+       rx="0.79356414"
+       ry="0.82806689" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.264583;stroke-opacity:1"
+       x="3.519284"
+       y="7.958643"
+       id="text8"><tspan
+         sodipodi:role="line"
+         id="tspan8"
+         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.264583;stroke-opacity:1"
+         x="3.519284"
+         y="7.958643">Lua</tspan></text>
+  </g>
+</svg>

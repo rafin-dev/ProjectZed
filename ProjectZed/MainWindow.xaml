@@ -12,6 +12,7 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         StateChanged="OnWindowStateChanged">
+
     <Border Background="Transparent" CornerRadius="10">
         <Grid>
             <Grid.RowDefinitions>
@@ -35,7 +36,7 @@
 
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="20px"/>
+                        <RowDefinition Height="30px"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 

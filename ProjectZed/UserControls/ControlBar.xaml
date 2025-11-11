@@ -6,11 +6,52 @@
              xmlns:local="clr-namespace:ProjectZed"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             Background="Black">
-    <Grid>
-        <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Background="Transparent"
-                BorderThickness="0" Click="OnClick">
-            <Image Source="/Assets/Close.png"/>
+             Background="#111117"
+             KeyDown="OnKeyDown">
+    <UserControl.Resources>
+        <Style x:Key="NoMouseOverButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Border"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"   >
+                            <ContentPresenter Margin="2"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            RecognizesAccessKey="True" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" x:Name="RunButtonStack">
+            <Button Style="{StaticResource NoMouseOverButtonStyle}"
+            HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="30" Background="Transparent"
+                BorderThickness="0" Click="RunOnClick">
+                <Image Source="/Assets/Run.png"/>
+            </Button>
+            <Button Style="{StaticResource NoMouseOverButtonStyle}"
+            HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="30" Background="Transparent"
+                BorderThickness="0">
+                <Image Source="/Assets/RunDebug.png"/>
+            </Button>
+        </StackPanel>
+
+        <Button Style="{StaticResource NoMouseOverButtonStyle}" Visibility="Collapsed" x:Name="StopButton"
+            HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="30" Background="Transparent"
+                BorderThickness="0" Click="StopOnClick">
+            <Image Source="/Assets/Stop.png"/>
         </Button>
-    </Grid>
+    </StackPanel>
+
 </UserControl>

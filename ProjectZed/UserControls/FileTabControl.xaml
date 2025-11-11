@@ -35,6 +35,6 @@
         </RichTextBox>
 
         <RichTextBox x:Name="MiniView" FontSize="2px" IsReadOnly="True" Background="#0a0a0f" Grid.Column="3" Padding="0, 5, 0, 0"
-                    BorderThickness="0px" BorderBrush="Transparent" SelectionOpacity="0"/>
+                    BorderThickness="0px" BorderBrush="Transparent" SelectionOpacity="0" Cursor="Arrow"/>
     </Grid>
 </UserControl>
